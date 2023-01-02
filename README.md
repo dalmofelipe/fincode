@@ -1,7 +1,10 @@
 # CVM
 
-- para consultar o código da companhia
-[https://cvmweb.cvm.gov.br/SWB/Sistemas/SCW/CPublica/CiaAb/FormBuscaCiaAbOrdAlf.aspx?LetraInicial=P](https://cvmweb.cvm.gov.br/SWB/Sistemas/SCW/CPublica/CiaAb/FormBuscaCiaAbOrdAlf.aspx?LetraInicial=P)
+Consultar código CVM por letra inicial do nome da CIA
+
+https://cvmweb.cvm.gov.br/SWB/Sistemas/SCW/CPublica/CiaAb/FormBuscaCiaAbOrdAlf.aspx?LetraInicial=**P**
+    
+Código CVM da Petro Rio 22187
 
 ### Requisição de consulta de ITRs da Petrobras
 
@@ -32,10 +35,6 @@ Content-type: application/json
 
 ```
 
-- Consultar código CVM por letra inicial do nome da CIA
-https://cvmweb.cvm.gov.br/SWB/Sistemas/SCW/CPublica/CiaAb/FormBuscaCiaAbOrdAlf.aspx?LetraInicial=**P**
-    
-    Código CVM da Petro Rio 22187
     
 
 - Requisição POST no RAD
@@ -80,12 +79,12 @@ RESPONSE
 }
 ```
 
-- PARSER da response, obtendo os códigos de documentos e datas, contidos na função `OpenPopUpVer`
+PARSER da response, obtendo os códigos de documentos e datas, contidos na função `OpenPopUpVer`
 
-```html
+```md
 02218-7$&PETRO RIO S.A.$&ITR - Informações Trimestrais$& - $&<spanOrder></spanOrder> - $&<spanOrder>20220331</spanOrder> 31/03/2022$&<spanOrder>20220504</spanOrder> 04/05/2022 18:59$&Ativo$&1$&AP$&<i class='fi-page-search' id='VisualizarDocumento' style='font-size: 18px;cursor:pointer;color:#0C7766;' onclick=
 
-OpenPopUpVer('frmGerenciaPaginaFRE.aspx?NumeroSequencialDocumento=114282&CodigoTipoInstituicao=1')
+**OpenPopUpVer('frmGerenciaPaginaFRE.aspx?NumeroSequencialDocumento=114282&CodigoTipoInstituicao=1')**
 
  title='Visualizar o Documento'> </i><i class='fi-download' style='font-size: 18px;cursor:pointer;color:#0C7766;' title='Download' onclick=OpenDownloadDocumentos('114282','1','022187ITR310320220100114282-66','ITR')> </i><i class='fi-info' style='font-size: 18px;cursor:pointer;color:#696969;' title='Documento não possui local de publicação.'> </i><i class='fi-clipboard-notes' style='font-size: 18px;cursor:pointer;color:#0C7766;' title='Exibir Protocolo de Entrega' onclick='exibirProtocoloPDF(114282, \"ENET\")'</i>
 
@@ -109,7 +108,10 @@ Informações extraídas:
 | 31/03/2022 | 114282 | https://www.rad.cvm.gov.br/ENET/frmGerenciaPaginaFRE.aspx?NumeroSequencialDocumento=114282&CodigoTipoInstituicao=1 |
 | 30/06/2022 | 119205 | https://www.rad.cvm.gov.br/ENET/frmGerenciaPaginaFRE.aspx?NumeroSequencialDocumento=119205&CodigoTipoInstituicao=1 |
 | 30/09/2022 | 121259 | https://www.rad.cvm.gov.br/ENET/frmGerenciaPaginaFRE.aspx?NumeroSequencialDocumento=121259&CodigoTipoInstituicao=1 |
+
+
 - LINK para visualizar o documento no sistema RAD. O código acima pode ser obtido pela reposta da consulta
+
 https://www.rad.cvm.gov.br/ENET/frmGerenciaPaginaFRE.aspx?NumeroSequencialDocumento=**121259**&CodigoTipoInstituicao=1
 
 Link completo do demonstrativo de resultados acima. Importe a HASH gerado por ele.
@@ -127,13 +129,19 @@ Hash=aMlOcgOPWDmi3B1uJhqbZYeSVnmJ1SLUlJ2d8RfVs
 | Demonstração das Mutações do Patrimônio Líquido |  |
 | Demonstração de Valor Adicionado |  |
 
+
+
+
+
+
 ROE = (Lucro/Prejuízo Consolidado do Período / Patrimônio Líquido Consolidado) * 100
+
 46.236.000 / 374.105.000 = 12,3590%
 31.224.000 / 389.581.000 = 8,0147%
 
+
+
+
 - URL para **DOWNLOAD** do documento acima, dados obtidos dos parâmetros da função **OpenDownload**
+
 https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&numSequencia=**121328**&numVersao=**1**&numProtocolo=**009512ITR300920220100121328**&descTipo=**ITR**&CodigoInstituicao=**1**
-
-[rad.html](CVM%20c97c47a670f64632a38604f01cee9480/rad.html)
-
-[rad.md](CVM%20c97c47a670f64632a38604f01cee9480/rad.md)

@@ -6,7 +6,7 @@ https://cvmweb.cvm.gov.br/SWB/Sistemas/SCW/CPublica/CiaAb/FormBuscaCiaAbOrdAlf.a
     
 Código CVM da Petro Rio 22187
 
-### Requisição de consulta de ITRs da Petrobras
+### Requisição de consulta de ITRs da Petro Rio
 
 ```json
 

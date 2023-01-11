@@ -13,6 +13,7 @@ asyncio = "^3.4.3"
 cchardet = "^2.1.7"
 aiodns = "^3.0.0"
 pandas = "^1.5.2"
+pytest = "^7.2.0"
 
 
 [build-system]

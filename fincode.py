@@ -1,6 +1,5 @@
 """
 Finance Code
-
 """
 import aiohttp
 import asyncio
@@ -31,76 +30,76 @@ HEADERS = {
     'Accept-Language': 'en-US,en;q=0.9',
     'Pragma': 'no-cache',
 }
-__DF = None
+__DataFrame = None
 
 
 
-def run_event_loop(function, *args):
+def run_event_loop(
+    function, *args
+):
     loop = asyncio.get_event_loop()
     loop.run_until_complete(function(*args))
-    return __DF
+    return __DataFrame
 
 
-async def __run_search_by_name(name_cia, ativos):
+async def __run_search_by_name(
+    name_cia, ativos
+): 
     """
-    """ 
+    """
     name_cia = name_cia.upper()
     HEADERS['user-agent'] = random.choice(USER_AGENTS)
 
     async with aiohttp.ClientSession(headers=HEADERS) as session:
         async with session.get(URL_DADOS_CADASTRAIS) as response:
-            global __DF
+            global __DataFrame
             csv_text = await response.text(encoding='latin-1')
             csv_io = StringIO(csv_text)
-            __DF = pd.read_csv(csv_io, sep=';', header=0, index_col=False)
-            __DF = __DF[ (__DF['DENOM_SOCIAL'].str.contains(name_cia, na = False)) ]
+            __DataFrame = pd.read_csv(csv_io, sep=';', header=0, index_col=False)
+            __DataFrame = __DataFrame[ (__DataFrame['DENOM_SOCIAL'].str.contains(name_cia, na = False)) ]
             if ativos:
-                __DF = __DF[ (__DF['SIT'].str.contains('ATIVO', na = False)) ]
-            __DF = __DF[['CNPJ_CIA', 'DENOM_SOCIAL', 'CD_CVM', 'SIT']].reset_index(drop=True)
+                __DataFrame = __DataFrame[ (__DataFrame['SIT'].str.contains('ATIVO', na = False)) ]
+            __DataFrame = __DataFrame[['CNPJ_CIA', 'DENOM_SOCIAL', 'CD_CVM', 'SIT']].reset_index(drop=True)
 
 
 def search_by_name(
-    name_cia: str, 
-    ativos: Optional[bool] = False
+    name_cia: str, ativos: Optional[bool] = False
 ):
     """
-    Busca os dados cadastrais de compainhias pelo nome;
+    Busca os dados cadastrais de companhias pelo nome;
     
-    Recebe um texto (string) será comparado com os nomes das Cia.  
+    @Params: Um texto (string) será comparado com os nomes das Cia.  
     
-    Retorna um pandas.Dataframe de Cias em que houve casamento de padrão 
-    com texto de entrada
+    @Return: pandas.Dataframe de companhias em que houve casamento de padrão com texto de entrada
     """
     run_event_loop(__run_search_by_name, name_cia, ativos)
-    return __DF
+    return __DataFrame
 
 
 async def __run_search_by_cvm_code(
     cod_cvm: int,
 ):
-    """
-    """ 
     HEADERS['user-agent'] = random.choice(USER_AGENTS)
 
     async with aiohttp.ClientSession(headers=HEADERS) as session:
         async with session.get(URL_DADOS_CADASTRAIS) as response:
-            global __DF
+            global __DataFrame
             csv_text = await response.text(encoding='latin-1')
             csv_io = StringIO(csv_text)
-            __DF = pd.read_csv(csv_io, sep=';', header=0, index_col=False)
-            __DF = __DF[ __DF['CD_CVM'] == cod_cvm ]
-            __DF = __DF[['CNPJ_CIA', 'DENOM_SOCIAL', 'CD_CVM', 'SIT']].reset_index(drop=True)
+            __DataFrame = pd.read_csv(csv_io, sep=';', header=0, index_col=False)
+            __DataFrame = __DataFrame[ __DataFrame['CD_CVM'] == cod_cvm ]
+            __DataFrame = __DataFrame[['CNPJ_CIA', 'DENOM_SOCIAL', 'CD_CVM', 'SIT']].reset_index(drop=True)
 
 
 def search_by_cvm_code(
     cod_cvm: int
 ):
     """
-    Busca os dados cadastrais de Cias pelo código CVM.
+    Busca os dados cadastrais de companhias pelo código CVM.
     
-    Recebe um texto (string) será comparado com os codigos das Cias.
+    @Params: um texto (string) será comparado com os codigos das companhias.
     
-    Retorna um pandas.Dataframe contendo os dados cadastrais de uma Cia
+    @Return: pandas.Dataframe contendo os dados cadastrais de uma Cia
     """
     run_event_loop(__run_search_by_cvm_code, cod_cvm)
-    return __DF
+    return __DataFrame

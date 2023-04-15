@@ -6,6 +6,8 @@
 # Node artifact files
 node_modules/
 dist/
+__pycache__/
+.pytest_cache/
 
 # Compiled Java class files
 *.class
@@ -48,3 +50,4 @@ Thumbs.db
 *.mov
 *.wmv
 
+ALG.md

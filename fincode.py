@@ -9,7 +9,7 @@ import pandas as pd
 from io import StringIO
 from typing import Optional
 
-
+URL_BASE_RAD = 'https://www.rad.cvm.gov.br/ENET/'
 URL_DADOS_CADASTRAIS = 'https://dados.cvm.gov.br/dados/CIA_ABERTA/CAD/DADOS/cad_cia_aberta.csv'
 USER_AGENTS = [
     'Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.130 Safari/537.36',

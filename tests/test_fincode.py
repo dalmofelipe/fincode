@@ -1,7 +1,8 @@
+#!/bin/bash python3
 import fincode as fc
 
 
-def test_search_petro_rio_by_cvm_code():
+def test_search_petro_rio_by_name():
     results = fc.search_by_name('PETRO RIO')
     for r in results:
         print(r)

@@ -6,12 +6,16 @@ Lib para consultas de tabelas de informações trimestrais de empresas via siste
 
 Algoritmo
 
-1. Consultar código CVM da empresa - exemplo PetroRIO = 22187
-2. Consultar documentos pelo formulário RAD pelo codigo CVM
-3. Parse da resposta, extraindo dados dos documentos
-4. GET no link de visualizar documento com os dados
-5. Parse da response visando a tag script, extraindo link de acesso da tabela e principalmente a HASH
+1. [Consultar código CVM da empresa - exemplo PetroRIO = 22187](#0-consultar-código-cvm-da-empresa)
+2. [Consultar documentos pelo formulário RAD pelo codigo CVM](#1-consultar-documentos-pelo-formulário-rad)
+3. [Parse da resposta, extraindo dados dos documentos](#2-parse-da-resposta-extraindo-dados-dos-documentos---numerosequencialdocumento-e-codigotipoinstituicao)
+4. [GET no link de visualizar documento com os dados](#3-get-no-link-de-visualizar-documento-com-os-dados---numerosequencialdocumento-e-codigotipoinstituicao)
+5. [Parse da response visando a tag script, extraindo link de acesso da tabela e principalmente a HASH](#4-parse-da-response-visando-a-tag-script-extraindo-link-de-acesso-da-tabela-e-principalmente-a-hash)
+6. [DFs Consolidadas](#dfs-consolidadas)
+7. [DFs Individuais](#dfs-individuais)
 
+
+<br>
 
 ### 0. Consultar código CVM da empresa
 
@@ -19,6 +23,7 @@ https://cvmweb.cvm.gov.br/SWB/Sistemas/SCW/CPublica/CiaAb/FormBuscaCiaAbOrdAlf.a
     
 Código CVM da Petro Rio 22187
 
+<br>
 
 ### 1. consultar documentos pelo formulário RAD
 
@@ -63,7 +68,9 @@ Content-type: application/json
 }
 ```
 
-### 2. parse da resposta, extraindo dados dos documentos - NumeroSequencialDocumento=121259&CodigoTipoInstituicao=1
+<br>
+
+### 2. Parse da resposta, extraindo dados dos documentos - NumeroSequencialDocumento e CodigoTipoInstituicao
 
 ```md
 02218-7$&PETRO RIO S.A.$&ITR - Informações Trimestrais$& - $&<spanOrder></spanOrder> - $&<spanOrder>20220331</spanOrder> **31/03/2022**$&<spanOrder>20220504</spanOrder> 04/05/2022 18:59$&Ativo$&1$&AP$&<i class='fi-page-search' id='VisualizarDocumento' style='font-size: 18px;cursor:pointer;color:#0C7766;' onclick=
@@ -95,8 +102,9 @@ $&$&&*02218-7$&PETRO RIO S.A.$&ITR - Informações Trimestrais$& - $&<spanOrder>
 
 Com link acima, é possível consultar o código da resposta do RAD. Nele contem o link do **DFs Consolidadas / Demonstração do Resultado - (Reais Mil)** na tag script bem no final do arquivo e também a HASH que necessária para as demais consultas.
 
+<br>
 
-### 3. GET no link de visualizar documento com os dados NumeroSequencialDocumento=121259&CodigoTipoInstituicao=1
+### 3. GET no link de visualizar documento com os dados - NumeroSequencialDocumento e CodigoTipoInstituicao
 
 Acessar essa rota é obrigatória, para liberar acessos as outras rotas de documentos
 
@@ -141,8 +149,11 @@ window.frames[0].location='frmDemonstracaoFinanceiraITR.aspx?Informacao=2&Demons
 
 **Hash=s5XZ7sJHHMWDxgaVgx5bfhLSspwAaHc9JgSLQuhDszQ**
 
+A HASH aparentemente para garantir o arquivo que esta lendo
 
-### 4. parse da response visando a tag script extraindo link de acesso da tabela e principalmente a HASH
+<br>
+
+### 4. Parse da response visando a tag script extraindo link de acesso da tabela e principalmente a HASH
 
 Os links do select / option estão incompletos:
 
@@ -158,49 +169,94 @@ frmDemonstracaoFinanceiraITR.aspx?Informacao=2&Demonstracao=3&Periodo=0&Grupo=DF
 
 <br>
 
-### LINKS PARA TABELAS DOS DOCUMENTOS DE DEMONSTRATIVOS FINANCEIROS CONSOLIDADOS
+## DFs Consolidadas
 
-```DFs Consolidadas / Demonstração do Resultado - (Reais Mil)```
+DFs Consolidadas / Demonstração do Resultado - (Reais Mil)
 
 ```http
 GET https://www.rad.cvm.gov.br/ENET/frmDemonstracaoFinanceiraITR.aspx?Informacao=2&Demonstracao=4&Periodo=0&Grupo=DFs+Consolidadas&Quadro=Demonstra%c3%a7%c3%a3o+do+Resultado&NomeTipoDocumento=ITR&Empresa=PETRO RIO S.A.&DataReferencia=2022-09-30&Versao=1&CodTipoDocumento=3&NumeroSequencialDocumento=121259&NumeroSequencialRegistroCvm=2047&CodigoTipoInstituicao=1&Hash=s5XZ7sJHHMWDxgaVgx5bfhLSspwAaHc9JgSLQuhDszQ
 ```
 
-```DFs Consolidadas / Balanço Patrimonial Ativo - (Reais Mil)```
+DFs Consolidadas / Balanço Patrimonial Ativo - (Reais Mil)
 
 ```http
 GET https://www.rad.cvm.gov.br/ENET/frmDemonstracaoFinanceiraITR.aspx?Informacao=2&Demonstracao=2&Periodo=0&Grupo=DFs+Consolidadas&Quadro=Balan%c3%a7o+Patrimonial+Ativo&NomeTipoDocumento=ITR&Empresa=PETRO RIO S.A.&DataReferencia=2022-09-30&Versao=1&CodTipoDocumento=3&NumeroSequencialDocumento=121259&NumeroSequencialRegistroCvm=2047&CodigoTipoInstituicao=1&Hash=s5XZ7sJHHMWDxgaVgx5bfhLSspwAaHc9JgSLQuhDszQ
 ```
 
-```DFs Consolidadas / Balanço Patrimonial Passivo - (Reais Mil)```
+DFs Consolidadas / Balanço Patrimonial Passivo - (Reais Mil)
 
 ```http
 GET https://www.rad.cvm.gov.br/ENET/frmDemonstracaoFinanceiraITR.aspx?Informacao=2&Demonstracao=3&Periodo=0&Grupo=DFs+Consolidadas&Quadro=Balan%c3%a7o+Patrimonial+Passivo&NomeTipoDocumento=ITR&Empresa=PETRO RIO S.A.&DataReferencia=2022-09-30&Versao=1&CodTipoDocumento=3&NumeroSequencialDocumento=121259&NumeroSequencialRegistroCvm=2047&CodigoTipoInstituicao=1&Hash=s5XZ7sJHHMWDxgaVgx5bfhLSspwAaHc9JgSLQuhDszQ
 ```
 
-```DFs Consolidadas / Demonstração do Resultado Abrangente - (Reais Mil)```
+DFs Consolidadas / Demonstração do Resultado Abrangente - (Reais Mil)
 
 ```http
 GET https://www.rad.cvm.gov.br/ENET/frmDemonstracaoFinanceiraITR.aspx?Informacao=2&Demonstracao=5&Periodo=0&Grupo=DFs+Consolidadas&Quadro=Demonstra%c3%a7%c3%a3o+do+Resultado+Abrangente&NomeTipoDocumento=ITR&Empresa=PETRO RIO S.A.&DataReferencia=2022-09-30&Versao=1&CodTipoDocumento=3&NumeroSequencialDocumento=121259&NumeroSequencialRegistroCvm=2047&CodigoTipoInstituicao=1&Hash=s5XZ7sJHHMWDxgaVgx5bfhLSspwAaHc9JgSLQuhDszQ
 ```
 
 
-```DFs Consolidadas / Demonstração do Fluxo de Caixa - (Reais Mil) - Método Indireto```
+DFs Consolidadas / Demonstração do Fluxo de Caixa - (Reais Mil) - Método Indireto
 
 ```http
 GET https://www.rad.cvm.gov.br/ENET/frmDemonstracaoFinanceiraITR.aspx?Informacao=2&Demonstracao=99&Periodo=0&Grupo=DFs+Consolidadas&Quadro=Demonstra%c3%a7%c3%a3o+do+Fluxo+de+Caixa&NomeTipoDocumento=ITR&Empresa=PETRO RIO S.A.&DataReferencia=2022-09-30&Versao=1&CodTipoDocumento=3&NumeroSequencialDocumento=121259&NumeroSequencialRegistroCvm=2047&CodigoTipoInstituicao=1&Hash=s5XZ7sJHHMWDxgaVgx5bfhLSspwAaHc9JgSLQuhDszQ
 ```
 
 
-```DFs Consolidadas / Demonstração das Mutações do Patrimônio Líquido - (Reais Mil)```
+DFs Consolidadas / Demonstração das Mutações do Patrimônio Líquido - (Reais Mil)
 
 ```http
 GET https://www.rad.cvm.gov.br/ENET/frmDemonstracaoFinanceiraITR.aspx?Informacao=200&Demonstracao=8&Periodo=4|6&Grupo=DFs+Consolidadas&Quadro=Demonstra%c3%a7%c3%a3o+das+Muta%c3%a7%c3%b5es+do+Patrim%c3%b4nio+L%c3%adquido&NomeTipoDocumento=ITR&Empresa=PETRO RIO S.A.&DataReferencia=2022-09-30&Versao=1&CodTipoDocumento=3&NumeroSequencialDocumento=121259&NumeroSequencialRegistroCvm=2047&CodigoTipoInstituicao=1&Hash=s5XZ7sJHHMWDxgaVgx5bfhLSspwAaHc9JgSLQuhDszQ
 ```
 
-
-```DFs Consolidadas / Demonstração de Valor Adicionado - (Reais Mil)```
+DFs Consolidadas / Demonstração de Valor Adicionado - (Reais Mil)
 
 ```http
 GET https://www.rad.cvm.gov.br/ENET/frmDemonstracaoFinanceiraITR.aspx?Informacao=2&Demonstracao=9&Periodo=0&Grupo=DFs+Consolidadas&Quadro=Demonstra%c3%a7%c3%a3o+de+Valor+Adicionado&NomeTipoDocumento=ITR&Empresa=PETRO RIO S.A.&DataReferencia=2022-09-30&Versao=1&CodTipoDocumento=3&NumeroSequencialDocumento=121259&NumeroSequencialRegistroCvm=2047&CodigoTipoInstituicao=1&Hash=s5XZ7sJHHMWDxgaVgx5bfhLSspwAaHc9JgSLQuhDszQ
+```
+
+<br>
+
+## DFs Individuais
+
+DFs Individuais / Balanço Patrimonial Ativo - (Reais Mil)
+
+```http
+GET https://www.rad.cvm.gov.br/ENET/frmDemonstracaoFinanceiraITR.aspx?Informacao=1&Demonstracao=2&Periodo=0&Grupo=DFs+Individuais&Quadro=Balanço+Patrimonial+Ativo&NomeTipoDocumento=ITR&Empresa=PETRO RIO S.A.&DataReferencia=2022-09-30&Versao=1&CodTipoDocumento=3&NumeroSequencialDocumento=121259&NumeroSequencialRegistroCvm=2047&CodigoTipoInstituicao=1&Hash=s5XZ7sJHHMWDxgaVgx5bfhLSspwAaHc9JgSLQuhDszQ
+```
+
+DFs Individuais / Balanço Patrimonial Passivo - (Reais Mil)
+
+```http
+GET https://www.rad.cvm.gov.br/ENET/frmDemonstracaoFinanceiraITR.aspx?Informacao=1&Demonstracao=3&Periodo=0&Grupo=DFs+Individuais&Quadro=Balanço+Patrimonial+Passivo&NomeTipoDocumento=ITR&Empresa=PETRO RIO S.A.&DataReferencia=2022-09-30&Versao=1&CodTipoDocumento=3&NumeroSequencialDocumento=121259&NumeroSequencialRegistroCvm=2047&CodigoTipoInstituicao=1&Hash=s5XZ7sJHHMWDxgaVgx5bfhLSspwAaHc9JgSLQuhDszQ
+```
+
+DFs Individuais / Demonstração do Resultado - (Reais Mil)
+
+```http
+GET https://www.rad.cvm.gov.br/ENET/frmDemonstracaoFinanceiraITR.aspx?Informacao=1&Demonstracao=4&Periodo=0&Grupo=DFs+Individuais&Quadro=Demonstração+do+Resultado&NomeTipoDocumento=ITR&Empresa=PETRO RIO S.A.&DataReferencia=2022-09-30&Versao=1&CodTipoDocumento=3&NumeroSequencialDocumento=121259&NumeroSequencialRegistroCvm=2047&CodigoTipoInstituicao=1&Hash=s5XZ7sJHHMWDxgaVgx5bfhLSspwAaHc9JgSLQuhDszQ
+```
+
+DFs Individuais / Demonstração do Resultado Abrangente - (Reais Mil)
+
+```http
+GET https://www.rad.cvm.gov.br/ENET/frmDemonstracaoFinanceiraITR.aspx?Informacao=1&Demonstracao=5&Periodo=0&Grupo=DFs+Individuais&Quadro=Demonstração+do+Resultado+Abrangente&NomeTipoDocumento=ITR&Empresa=PETRO RIO S.A.&DataReferencia=2022-09-30&Versao=1&CodTipoDocumento=3&NumeroSequencialDocumento=121259&NumeroSequencialRegistroCvm=2047&CodigoTipoInstituicao=1&Hash=s5XZ7sJHHMWDxgaVgx5bfhLSspwAaHc9JgSLQuhDszQ
+```
+
+DFs Individuais / Demonstração do Fluxo de Caixa - (Reais Mil) - Método Indireto
+
+```http
+GET https://www.rad.cvm.gov.br/ENET/frmDemonstracaoFinanceiraITR.aspx?Informacao=1&Demonstracao=99&Periodo=0&Grupo=DFs+Individuais&Quadro=Demonstração+do+Fluxo+de+Caixa&NomeTipoDocumento=ITR&Empresa=PETRO RIO S.A.&DataReferencia=2022-09-30&Versao=1&CodTipoDocumento=3&NumeroSequencialDocumento=121259&NumeroSequencialRegistroCvm=2047&CodigoTipoInstituicao=1&Hash=s5XZ7sJHHMWDxgaVgx5bfhLSspwAaHc9JgSLQuhDszQ
+```
+
+DFs Individuais / Demonstração das Mutações do Patrimônio Líquido - (Reais Mil)
+
+```http
+GET https://www.rad.cvm.gov.br/ENET/frmDemonstracaoFinanceiraITR.aspx?Informacao=100&Demonstracao=8&Periodo=4|6&Grupo=DFs+Individuais&Quadro=Demonstração+das+Mutações+do+Patrimônio+Líquido&NomeTipoDocumento=ITR&Empresa=PETRO RIO S.A.&DataReferencia=2022-09-30&Versao=1&CodTipoDocumento=3&NumeroSequencialDocumento=121259&NumeroSequencialRegistroCvm=2047&CodigoTipoInstituicao=1&Hash=s5XZ7sJHHMWDxgaVgx5bfhLSspwAaHc9JgSLQuhDszQ
+```
+
+DFs Individuais / Demonstração de Valor Adicionado - (Reais Mil)
+
+```http
+GET https://www.rad.cvm.gov.br/ENET/frmDemonstracaoFinanceiraITR.aspx?Informacao=1&Demonstracao=9&Periodo=0&Grupo=DFs+Individuais&Quadro=Demonstração+de+Valor+Adicionado&NomeTipoDocumento=ITR&Empresa=PETRO RIO S.A.&DataReferencia=2022-09-30&Versao=1&CodTipoDocumento=3&NumeroSequencialDocumento=121259&NumeroSequencialRegistroCvm=2047&CodigoTipoInstituicao=1&Hash=s5XZ7sJHHMWDxgaVgx5bfhLSspwAaHc9JgSLQuhDszQ
 ```

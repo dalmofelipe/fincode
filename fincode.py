@@ -6,7 +6,7 @@ import asyncio
 import random
 import pandas as pd
 import re
-
+import rich
 from datetime import datetime
 from io import StringIO
 from typing import Optional, List, Union
@@ -91,7 +91,7 @@ def parser_data_companies(
 ):
     """
     O resultado da regex retorna todos os dados juntos numa lista. Esta lista sempre deve 
-    conter uma quantidade de itens multiplo de 5.
+    conter uma quantidade de itens multiplo de 5. A cada 5 itens equivalem a um documento.
 
     Os dadoes estão na ordem:
     - Nome da empresa
@@ -103,7 +103,26 @@ def parser_data_companies(
     regex = re.compile(RGX_PARSER_DADOS_EMPRESAS)
     result = regex.findall(data_txt)
 
-    return result
+    # a busca deve retornar quantidade de itens multiplos de 5
+    if len(result) % 5 != 0: return {
+        "msg": "erro ao pesquisar documentos",
+        "erro": "dados insulficiente para processar documentos",
+        "func": "parser_data_companies"
+    }
+    documents_list = []
+    while len(result) > 0:
+        # a cada iteração, os 5 primeiros dados são removidos da lista e agrupados
+        # em um dicionário, representando um documento
+        doc_data = result[:5]
+        del result[:5]
+        documents_list.append({
+            "company": doc_data[0][2:len(doc_data[0]) -5],
+            "dt_referencia": doc_data[1],
+            "dt_entrega": doc_data[2], 
+            "num_documento": doc_data[3].split('=')[1], 
+            "type_doc": doc_data[4].split('=')[1]
+        })
+    return documents_list
 
 
 
@@ -188,7 +207,9 @@ async def __run_get_documents_by_code_cvm(
         async with session.post(URL_RAD_SEARCH, json=form_search) as response:
             __DataFrame = await response.json(encoding='utf-8')
             # apos a requisição, apenas os dados da resposta sera analisado
-            __DataFrame = __DataFrame['d']['dados']
+            data = __DataFrame['d']['dados']
+            __DataFrame = parser_data_companies(data)
+
 
 
 def get_documents_by_code_cvm(

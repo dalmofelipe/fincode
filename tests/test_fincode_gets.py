@@ -1,5 +1,6 @@
 #!/bin/bash python3
 import fincode as fc
+import rich
 
 
 def test_get_documents_by_code_cvm() -> None:
@@ -10,9 +11,9 @@ def test_get_documents_by_code_cvm() -> None:
 
     @Return: Lista de dataframes dos documentos
     """
-    #records = fc.get_documents_by_code_cvm(22187, '01/01/2022', '31/12/2022')
-    
-    assert True == True
+    documents = fc.get_documents_by_code_cvm(22187, '01/01/2022', '31/12/2022')
+    rich.print(documents)
+    assert True
 
 
 def test_normalize_code_cvm() -> None:
@@ -22,3 +23,5 @@ def test_normalize_code_cvm() -> None:
     assert fc.normalize_code_cvm(cvm_code) == ',022187'
     cvm_code = 7
     assert fc.normalize_code_cvm(cvm_code) == ',000007'
+    cvm_code = 1234567890
+    assert fc.normalize_code_cvm(cvm_code) == ',1234567890'

@@ -5,6 +5,7 @@ import aiohttp
 import asyncio
 import random
 import pandas as pd
+import re
 
 from datetime import datetime
 from io import StringIO
@@ -51,6 +52,8 @@ OBJ_SEARCH = {
     "token": '',
     "versaoCaptcha": ''
 }
+RGX_PARSER_DADOS_EMPRESAS = r'(\$&[a-zA-Z1-9.\- ]+\$&ITR|\d{2}/\d{2}/\d{4}|NumeroSequencialDocumento=\d+|CodigoTipoInstituicao=\d+)'
+
 
 __DataFrame = None
 
@@ -67,11 +70,11 @@ def normalize_code_cvm(
     code_cvm:int
 ):
     """ 
-    Padroniza formato do código CVM para dados de consulta no RAD 
+    Padroniza formato do código CVM para o dicionario de consulta no RAD 
 
-    Deve conter 7 caracteres, sendo o primeiro o simbolo de virgula. 
+    Deve conter 7 caracteres, sendo que primeiro o simbolo deve ser uma virgula. 
 
-    Deve-se completar com zeros a esquerda, case o código CVM com menos de 6 digitos 
+    Deve-se completar com zeros a esquerda, caso o código CVM com menos de 6 digitos 
     """
     code_txt = str(code_cvm)
 
@@ -82,8 +85,31 @@ def normalize_code_cvm(
     return code_txt
 
 
+
+def parser_data_companies(
+    data_txt:str
+):
+    """
+    O resultado da regex retorna todos os dados juntos numa lista. Esta lista sempre deve 
+    conter uma quantidade de itens multiplo de 5.
+
+    Os dadoes estão na ordem:
+    - Nome da empresa
+    - Data de Referencia
+    - Date de Entrega
+    - Numero Sequencial do Documento. Formato dd/MM/yyyy
+    - Tipo de Empresa
+    """
+    regex = re.compile(RGX_PARSER_DADOS_EMPRESAS)
+    result = regex.findall(data_txt)
+
+    return result
+
+
+
 async def __run_search_by_name(
-    name_cia, ativos
+    name_cia:str, 
+    active:bool
 ): 
     """
     """
@@ -97,14 +123,15 @@ async def __run_search_by_name(
             csv_io = StringIO(csv_text)
             __DataFrame = pd.read_csv(csv_io, sep=';', header=0, index_col=False)
             __DataFrame = __DataFrame[ (__DataFrame['DENOM_SOCIAL'].str.contains(name_cia, na = False)) ]
-            if ativos:
+            if active:
                 __DataFrame = __DataFrame[ (__DataFrame['SIT'].str.contains('ATIVO', na = False)) ]
             __DataFrame = __DataFrame[['CNPJ_CIA', 'DENOM_SOCIAL', 'CD_CVM', 'SIT']].reset_index(drop=True)
 
 
 def search_by_name(
-    name_cia: str, ativos: Optional[bool] = False
-):
+    name_cia: str, 
+    active: Optional[bool] = False
+)   -> pd.DataFrame:
     """
     Busca os dados cadastrais de companhias pelo nome;
     
@@ -112,7 +139,7 @@ def search_by_name(
     
     @Return: pandas.Dataframe de companhias em que houve casamento de padrão com texto de entrada
     """
-    run_event_loop(__run_search_by_name, name_cia, ativos)
+    run_event_loop(__run_search_by_name, name_cia, active)
     return __DataFrame
 
 
@@ -133,7 +160,7 @@ async def __run_search_by_cvm_code(
 
 def search_by_cvm_code(
     cod_cvm: int
-):
+)   -> pd.DataFrame:
     """
     Busca os dados cadastrais de companhias pelo código CVM.
     
@@ -160,9 +187,8 @@ async def __run_get_documents_by_code_cvm(
     async with aiohttp.ClientSession(headers=HEADERS) as session:
         async with session.post(URL_RAD_SEARCH, json=form_search) as response:
             __DataFrame = await response.json(encoding='utf-8')
+            # apos a requisição, apenas os dados da resposta sera analisado
             __DataFrame = __DataFrame['d']['dados']
-            #with open('saida.txt', 'w', encoding='latin-1') as file:
-                #file.write(str(__DataFrame))
 
 
 def get_documents_by_code_cvm(

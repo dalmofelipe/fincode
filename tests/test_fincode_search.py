@@ -5,7 +5,7 @@ import pandas as pd
 
 
 def test_search_petro_rio_by_name():
-    results = fc.search_by_name('PETRO RIO')
+    results = fc.search_companies_by_name('PETRO RIO')
     assert results['CNPJ_CIA']\
         .to_string(index = False, header = False) == '10.629.105/0001-68'
     assert results.CD_CVM\
@@ -13,7 +13,7 @@ def test_search_petro_rio_by_name():
 
 
 def test_search_petro_rio_by_cvm_code():
-    df_petro_rio = fc.search_by_cvm_code(22187)
+    df_petro_rio = fc.search_companies_by_cvm_code(22187)
     assert df_petro_rio['DENOM_SOCIAL']\
         .to_string(index = False, header = False) == 'PETRO RIO S.A.'
     assert df_petro_rio['DENOM_SOCIAL']\
@@ -21,6 +21,11 @@ def test_search_petro_rio_by_cvm_code():
 
 
 def test_search_companies_with_banco_in_name():
-    results = fc.search_by_name('BANCO', active=True)
+    results = fc.search_companies_by_name('BANCO', active=True)
     assert isinstance(results, pd.DataFrame) 
     assert len(results) == 24
+
+
+def test_search_itr_documents() -> None:    
+    results = fc.search_itr_docs(22187, '01/01/2022', '31/12/2022')
+    assert isinstance(results, list) and len(results) == 3

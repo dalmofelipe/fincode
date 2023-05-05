@@ -149,7 +149,7 @@ window.frames[0].location='frmDemonstracaoFinanceiraITR.aspx?Informacao=2&Demons
 
 **Hash=s5XZ7sJHHMWDxgaVgx5bfhLSspwAaHc9JgSLQuhDszQ**
 
-A HASH aparentemente para garantir o arquivo que esta lendo
+Importante: É gerada uma nova HASH por dia! E cada documento tem sua própria HASH.
 
 <br>
 
@@ -174,13 +174,13 @@ frmDemonstracaoFinanceiraITR.aspx?Informacao=2&Demonstracao=3&Periodo=0&Grupo=DF
 DFs Consolidadas / Demonstração do Resultado - (Reais Mil)
 
 ```http
-GET https://www.rad.cvm.gov.br/ENET/frmDemonstracaoFinanceiraITR.aspx?Informacao=2&Demonstracao=4&Periodo=0&Grupo=DFs+Consolidadas&Quadro=Demonstra%c3%a7%c3%a3o+do+Resultado&NomeTipoDocumento=ITR&Empresa=PETRO RIO S.A.&DataReferencia=2022-09-30&Versao=1&CodTipoDocumento=3&NumeroSequencialDocumento=121259&NumeroSequencialRegistroCvm=2047&CodigoTipoInstituicao=1&Hash=s5XZ7sJHHMWDxgaVgx5bfhLSspwAaHc9JgSLQuhDszQ
+GET https://www.rad.cvm.gov.br/ENET/frmDemonstracaoFinanceiraITR.aspx?Informacao=2&Demonstracao=4&Periodo=0&Grupo=DFs+Consolidadas&Quadro=Demonstra%c3%a7%c3%a3o+do+Resultado&NomeTipoDocumento=ITR&Empresa=PETRO RIO S.A.&DataReferencia=2022-09-30&Versao=1&CodTipoDocumento=3&NumeroSequencialDocumento=121259&NumeroSequencialRegistroCvm=2047&CodigoTipoInstituicao=1&Hash=y3IyKxBke2XIX7QxbQAOb4C8na7GDQuHnlBeTaV73Rg
 ```
 
 DFs Consolidadas / Balanço Patrimonial Ativo - (Reais Mil)
 
 ```http
-GET https://www.rad.cvm.gov.br/ENET/frmDemonstracaoFinanceiraITR.aspx?Informacao=2&Demonstracao=2&Periodo=0&Grupo=DFs+Consolidadas&Quadro=Balan%c3%a7o+Patrimonial+Ativo&NomeTipoDocumento=ITR&Empresa=PETRO RIO S.A.&DataReferencia=2022-09-30&Versao=1&CodTipoDocumento=3&NumeroSequencialDocumento=121259&NumeroSequencialRegistroCvm=2047&CodigoTipoInstituicao=1&Hash=s5XZ7sJHHMWDxgaVgx5bfhLSspwAaHc9JgSLQuhDszQ
+GET https://www.rad.cvm.gov.br/ENET/frmDemonstracaoFinanceiraITR.aspx?Informacao=2&Demonstracao=2&Periodo=0&Grupo=DFs+Consolidadas&Quadro=Balan%c3%a7o+Patrimonial+Ativo&NomeTipoDocumento=ITR&Empresa=PETRO RIO S.A.&DataReferencia=2022-09-30&Versao=1&CodTipoDocumento=3&NumeroSequencialDocumento=121259&NumeroSequencialRegistroCvm=2047&CodigoTipoInstituicao=1&Hash=y3IyKxBke2XIX7QxbQAOb4C8na7GDQuHnlBeTaV73Rg
 ```
 
 DFs Consolidadas / Balanço Patrimonial Passivo - (Reais Mil)

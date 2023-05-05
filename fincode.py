@@ -6,7 +6,6 @@ import asyncio
 import random
 import pandas as pd
 import re
-import rich
 from datetime import datetime
 from io import StringIO
 from typing import Optional, List, Union
@@ -66,8 +65,8 @@ def run_event_loop(
     return __DataFrame
 
 
-def normalize_code_cvm(
-    code_cvm:int
+def normalize_cvm_code(
+    cvm_code:int
 ):
     """ 
     Padroniza formato do código CVM para o dicionario de consulta no RAD 
@@ -76,7 +75,7 @@ def normalize_code_cvm(
 
     Deve-se completar com zeros a esquerda, caso o código CVM com menos de 6 digitos 
     """
-    code_txt = str(code_cvm)
+    code_txt = str(cvm_code)
 
     while len(code_txt) < 6:
         code_txt = '0' + code_txt
@@ -126,7 +125,7 @@ def parser_data_companies(
 
 
 
-async def __run_search_by_name(
+async def __run_search_companies_by_name(
     name_cia:str, 
     active:bool
 ): 
@@ -147,7 +146,7 @@ async def __run_search_by_name(
             __DataFrame = __DataFrame[['CNPJ_CIA', 'DENOM_SOCIAL', 'CD_CVM', 'SIT']].reset_index(drop=True)
 
 
-def search_by_name(
+def search_companies_by_name(
     name_cia: str, 
     active: Optional[bool] = False
 )   -> pd.DataFrame:
@@ -158,11 +157,11 @@ def search_by_name(
     
     @Return: pandas.Dataframe de companhias em que houve casamento de padrão com texto de entrada
     """
-    run_event_loop(__run_search_by_name, name_cia, active)
+    run_event_loop(__run_search_companies_by_name, name_cia, active)
     return __DataFrame
 
 
-async def __run_search_by_cvm_code(
+async def __run_search_companies_by_cvm_code(
     cod_cvm: int,
 ):
     HEADERS['user-agent'] = random.choice(USER_AGENTS)
@@ -177,7 +176,7 @@ async def __run_search_by_cvm_code(
             __DataFrame = __DataFrame[['CNPJ_CIA', 'DENOM_SOCIAL', 'CD_CVM', 'SIT']].reset_index(drop=True)
 
 
-def search_by_cvm_code(
+def search_companies_by_cvm_code(
     cod_cvm: int
 )   -> pd.DataFrame:
     """
@@ -187,12 +186,12 @@ def search_by_cvm_code(
     
     @Return: pandas.Dataframe contendo os dados cadastrais de uma Cia
     """
-    run_event_loop(__run_search_by_cvm_code, cod_cvm)
+    run_event_loop(__run_search_companies_by_cvm_code, cod_cvm)
     return __DataFrame
 
 
-async def __run_get_documents_by_code_cvm(
-    code_cvm:int, 
+async def __run_search_itr_docs(
+    cvm_code:int, 
     start_date_param:str,
     final_date_param:str
 ):
@@ -201,7 +200,7 @@ async def __run_get_documents_by_code_cvm(
     form_search = OBJ_SEARCH
     form_search['dataDe'] = start_date_param
     form_search['dataAte'] = final_date_param
-    form_search['empresa'] = normalize_code_cvm(code_cvm)
+    form_search['empresa'] = normalize_cvm_code(cvm_code)
     global __DataFrame
     async with aiohttp.ClientSession(headers=HEADERS) as session:
         async with session.post(URL_RAD_SEARCH, json=form_search) as response:
@@ -212,17 +211,17 @@ async def __run_get_documents_by_code_cvm(
 
 
 
-def get_documents_by_code_cvm(
-    code_cvm:int, 
+def search_itr_docs(
+    cvm_code:int, 
     start_date_param:str,
     final_date_param:str
 )   -> Union[List, None]:
     """
-    Pesquisa documentos de uma empresa pelo código CVM, incluso num intervalo determinado.
+    Pesquisa documentos ITR num período específico
+    
+    @Params: Codigo CVM da empresa, data de inicio e fim do período
 
-    @Param: código CVM, data de inicio e data fim do intervalo. Todos obrigatórios.
-
-    @Return: Lista de documentos encontrados | None se intervalo incorreto 
+    @Return: Lista dos com dados dos documentos encontrados
     """
     start_date = datetime.strptime(start_date_param, '%d/%m/%Y')
     start_date = str(start_date.date().strftime("%d/%m/%Y"))
@@ -233,5 +232,5 @@ def get_documents_by_code_cvm(
     if start_date > final_date:
         return None
     
-    run_event_loop(__run_get_documents_by_code_cvm, code_cvm, start_date, final_date)
+    run_event_loop(__run_search_itr_docs, cvm_code, start_date, final_date)
     return __DataFrame

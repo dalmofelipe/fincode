@@ -2,7 +2,7 @@
 name = "fincode"
 version = "0.1.0"
 description = ""
-authors = ["dfelipe <dfelipe@outlook.com>"]
+authors = ["Dalmo Felipe <dalmofelipe.dev@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]

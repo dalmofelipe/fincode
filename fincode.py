@@ -1,6 +1,4 @@
-"""
-Finance Code
-"""
+""" Finance Code """
 import aiohttp
 import asyncio
 import random

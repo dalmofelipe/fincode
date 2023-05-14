@@ -4,11 +4,11 @@ import fincode as fc
 import rich
 
 
-# Pesquisando informações de empresas
+# Pesquisando informações cadastrais de empresas, para obter o codigo CVM, por exemplo
 df_cias_com_petro_no_nome = fc.search_companies_by_name('petro', active=True)
 rich.print(df_cias_com_petro_no_nome)
 
-# Vamos analisar dados da PETRO RIO - PRIO3
+# Analisando dados da PETRO RIO - PRIO3
 # Códiog CVM da PRIO3 = 22187
 df_petro_rio = fc.search_companies_by_cvm_code(22187)
 rich.print(df_petro_rio)

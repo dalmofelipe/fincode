@@ -3,22 +3,21 @@ POST https://www.rad.cvm.gov.br/ENET/frmConsultaExternaCVM.aspx/ListarDocumentos
 Content-type: application/json
 
 {
-    dataDe: '01/07/2022',
-    dataAte: '30/12/2022',
-    // o cia_code deve ter 6 caracteres e deve começar com uma virgula
-    empresa: ',022187',
-    setorAtividade: '-1',
-    categoriaEmissor: '-1',
-    situacaoEmissor: '-1',
-    tipoParticipante: '-1',
-    dataReferencia: '',
-    categoria: 'EST_3',
-    periodo: '2',
-    horaIni: '',
-    horaFim: '',
-    palavraChave: '',
-    ultimaDtRef: 'false',
-    tipoEmpresa: '0',
-    token: '',
-    versaoCaptcha: ''
+    "dataDe": "01/07/2022",
+    "dataAte": "30/12/2022",
+    "empresa": ",022187",
+    "setorAtividade": "-1",
+    "categoriaEmissor": "-1",
+    "situacaoEmissor": "-1",
+    "tipoParticipante": "-1",
+    "dataReferencia": "",
+    "categoria": "EST_3",
+    "periodo": "2",
+    "horaIni": "",
+    "horaFim": "",
+    "palavraChave": "",
+    "ultimaDtRef": "false",
+    "tipoEmpresa": "0",
+    "token": "",
+    "versaoCaptcha": ""
 }

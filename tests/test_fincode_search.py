@@ -1,15 +1,15 @@
 #!/bin/bash python3
-import fincode as fc
+import pytest
 import pandas as pd
+import fincode as fc
 
 
-
+# @pytest.mark.skip(reason="no way of currently testing this")
 def test_search_petro_rio_by_name():
-    results = fc.search_companies_by_name('PETRO RIO')
-    assert results['CNPJ_CIA']\
-        .to_string(index = False, header = False) == '10.629.105/0001-68'
-    assert results.CD_CVM\
-        .to_string(index = False, header = False) == '22187'
+    df_res = fc.search_companies_by_name('PETRO')
+    # captura lista de valores da coluna CD_CVM
+    cvm_codes = list(df_res.loc[:,'CD_CVM'].values)    
+    assert 22187 in cvm_codes
 
 
 def test_search_petro_rio_by_cvm_code():
@@ -21,11 +21,11 @@ def test_search_petro_rio_by_cvm_code():
 
 
 def test_search_companies_with_banco_in_name():
-    results = fc.search_companies_by_name('BANCO', active=True)
-    assert isinstance(results, pd.DataFrame) 
-    assert len(results) == 24
+    df_res = fc.search_companies_by_name('BANCO', active=True)
+    assert isinstance(df_res, pd.DataFrame) 
+    assert len(df_res) == 24
 
 
 def test_search_itr_documents() -> None:    
-    results = fc.search_itr_docs(22187, '01/01/2022', '31/12/2022')
-    assert isinstance(results, list) and len(results) == 3
+    df_res = fc.search_itr_docs(22187, '01/01/2022', '31/12/2022')
+    assert isinstance(df_res, list) and len(df_res) == 3

@@ -1,5 +1,7 @@
 import re
 
+import pandas as pd
+
 from fincode.utils import RGX_PARSER_DADOS_EMPRESAS
 
 
@@ -55,5 +57,9 @@ def parser_data_companies(data_txt:str):
             "num_documento": doc_data[3].split('=')[1], 
             "type_doc": doc_data[4].split('=')[1]
         })
-    return documents_list
-
+    
+    dt = pd.DataFrame(
+        data = [ list(doc.values()) for doc in documents_list ], 
+        columns = ['company', 'dt_referencia', 'dt_entrega', 'num_documento', 'type_doc']
+    )
+    return dt

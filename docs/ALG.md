@@ -4,17 +4,6 @@
 
 Lib para consultas de tabelas de informações trimestrais de empresas via sistema RAD
 
-Algoritmo
-
-1. [Consultar código CVM da empresa - exemplo PetroRIO = 22187](#0-consultar-código-cvm-da-empresa)
-2. [Consultar documentos pelo formulário RAD pelo codigo CVM](#1-consultar-documentos-pelo-formulário-rad)
-3. [Parse da resposta, extraindo dados dos documentos](#2-parse-da-resposta-extraindo-dados-dos-documentos---numerosequencialdocumento-e-codigotipoinstituicao)
-4. [GET no link de visualizar documento com os dados](#3-get-no-link-de-visualizar-documento-com-os-dados---numerosequencialdocumento-e-codigotipoinstituicao)
-5. [Parse da response visando a tag script, extraindo link de acesso da tabela e principalmente a HASH](#4-parse-da-response-visando-a-tag-script-extraindo-link-de-acesso-da-tabela-e-principalmente-a-hash)
-6. [DFs Consolidadas](#dfs-consolidadas)
-7. [DFs Individuais](#dfs-individuais)
-
-
 <br>
 
 ### 0. Consultar código CVM da empresa
@@ -22,6 +11,7 @@ Algoritmo
 https://cvmweb.cvm.gov.br/SWB/Sistemas/SCW/CPublica/CiaAb/FormBuscaCiaAbOrdAlf.aspx?LetraInicial=**P**
     
 Código CVM da Petro Rio 22187
+
 
 <br>
 
@@ -53,7 +43,7 @@ Content-type: application/json
 }
 ```
 
-### RESPOSTA
+**RESPOSTA**
 
 ```json
 {
@@ -67,6 +57,7 @@ Content-type: application/json
     }
 }
 ```
+
 
 <br>
 
@@ -92,7 +83,7 @@ $&$&&*02218-7$&PETRO RIO S.A.$&ITR - Informações Trimestrais$& - $&<spanOrder>
  title='Visualizar o Documento'> </i><i class='fi-download' style='font-size: 18px;cursor:pointer;color:#0C7766;' title='Download' onclick=OpenDownloadDocumentos('121259','1','022187ITR300920220100121259-72','ITR')> </i><i class='fi-info' style='font-size: 18px;cursor:pointer;color:#696969;' title='Documento não possui local de publicação.'> </i><i class='fi-clipboard-notes' style='font-size: 18px;cursor:pointer;color:#0C7766;' title='Exibir Protocolo de Entrega' onclick='exibirProtocoloPDF(121259, \"ENET\")'</i>$&$&&*
 ```
 
-### Informações extraídas
+**Informações extraídas**
 
 | Data | Num Doc | Link completo |
 | --- | --- | --- |
@@ -101,6 +92,7 @@ $&$&&*02218-7$&PETRO RIO S.A.$&ITR - Informações Trimestrais$& - $&<spanOrder>
 | 30/09/2022 | 121259 | https://www.rad.cvm.gov.br/ENET/frmGerenciaPaginaFRE.aspx?NumeroSequencialDocumento=121259&CodigoTipoInstituicao=1 |
 
 Com link acima, é possível consultar o código da resposta do RAD. Nele contem o link do **DFs Consolidadas / Demonstração do Resultado - (Reais Mil)** na tag script bem no final do arquivo e também a HASH que necessária para as demais consultas.
+
 
 <br>
 
@@ -114,7 +106,7 @@ GET https://www.rad.cvm.gov.br/ENET/frmGerenciaPaginaFRE.aspx?NumeroSequencialDo
 ```
 
 
-### RESPOSTA
+**RESPOSTA**
 
 A requisão responde com links do select dos documentos
 
@@ -151,6 +143,7 @@ window.frames[0].location='frmDemonstracaoFinanceiraITR.aspx?Informacao=2&Demons
 
 Importante: É gerada uma nova HASH por dia! E cada documento tem sua própria HASH.
 
+
 <br>
 
 ### 4. Parse da response visando a tag script extraindo link de acesso da tabela e principalmente a HASH
@@ -169,7 +162,7 @@ frmDemonstracaoFinanceiraITR.aspx?Informacao=2&Demonstracao=3&Periodo=0&Grupo=DF
 
 <br>
 
-## DFs Consolidadas
+### DFs Consolidadas
 
 DFs Consolidadas / Demonstração do Resultado - (Reais Mil)
 
@@ -217,7 +210,7 @@ GET https://www.rad.cvm.gov.br/ENET/frmDemonstracaoFinanceiraITR.aspx?Informacao
 
 <br>
 
-## DFs Individuais
+### DFs Individuais
 
 DFs Individuais / Balanço Patrimonial Ativo - (Reais Mil)
 

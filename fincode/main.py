@@ -21,9 +21,6 @@ def run_event_loop(function, *args):
     return __DataFrame
 
 
-
-
-
 async def __run_search_companies_by_name(name_cia:str, active:bool): 
     name_cia = name_cia.upper()
     HEADERS['user-agent'] = random.choice(USER_AGENTS)
@@ -39,6 +36,21 @@ async def __run_search_companies_by_name(name_cia:str, active:bool):
             __DataFrame = __DataFrame[['CNPJ_CIA', 'DENOM_SOCIAL', 'CD_CVM', 'SIT']].reset_index(drop=True)
 
 
+def search_companies_by_name(name_cia: str, active: Optional[bool] = True) \
+    -> pd.DataFrame:
+    """
+    Busca os dados cadastrais de companhias pelo nome;
+    
+    @Params: String 'name_cia' - será comparado com os nomes das Cia.
+    @Params: Boolean 'active' - filtra companhias com registro ativo. Este o comportamento padrão.
+    
+    @Return: pandas.Dataframe de companhias em que houve casamento de padrão com texto de entrada
+    """
+    run_event_loop(__run_search_companies_by_name, name_cia, active)
+    return __DataFrame
+
+
+
 async def __run_search_companies_by_cvm_code(cod_cvm: int):
     HEADERS['user-agent'] = random.choice(USER_AGENTS)
     async with aiohttp.ClientSession(headers=HEADERS) as session:
@@ -49,6 +61,18 @@ async def __run_search_companies_by_cvm_code(cod_cvm: int):
             __DataFrame = pd.read_csv(csv_io, sep=';', header=0, index_col=False)
             __DataFrame = __DataFrame[ __DataFrame['CD_CVM'] == cod_cvm ]
             __DataFrame = __DataFrame[['CNPJ_CIA', 'DENOM_SOCIAL', 'CD_CVM', 'SIT']].reset_index(drop=True)
+
+
+def search_companies_by_cvm_code(cod_cvm: int) -> pd.DataFrame:
+    """
+    Busca os dados cadastrais de companhias pelo código CVM.
+    
+    @Params: um texto (string) será comparado com os codigos das companhias.
+    
+    @Return: pandas.Dataframe contendo os dados cadastrais de uma Cia
+    """
+    run_event_loop(__run_search_companies_by_cvm_code, cod_cvm)
+    return __DataFrame
 
 
 async def __run_search_itr_docs(cvm_code:int, start_date_param:str, final_date_param:str):
@@ -65,36 +89,6 @@ async def __run_search_itr_docs(cvm_code:int, start_date_param:str, final_date_p
             # apos a requisição, apenas os dados da resposta sera analisado
             data = __DataFrame['d']['dados']
             __DataFrame = parser_data_companies(data)
-
-
-
-
-
-def search_companies_by_name(name_cia: str, active: Optional[bool] = False) \
-    -> pd.DataFrame:
-    """
-    Busca os dados cadastrais de companhias pelo nome;
-    
-    @Params: Um texto (string) será comparado com os nomes das Cia.  
-    
-    @Return: pandas.Dataframe de companhias em que houve casamento de padrão com texto de entrada
-    """
-    run_event_loop(__run_search_companies_by_name, name_cia, active)
-    return __DataFrame
-
-
-
-def search_companies_by_cvm_code(cod_cvm: int) -> pd.DataFrame:
-    """
-    Busca os dados cadastrais de companhias pelo código CVM.
-    
-    @Params: um texto (string) será comparado com os codigos das companhias.
-    
-    @Return: pandas.Dataframe contendo os dados cadastrais de uma Cia
-    """
-    run_event_loop(__run_search_companies_by_cvm_code, cod_cvm)
-    return __DataFrame
-
 
 
 def search_itr_docs(cvm_code:int, start_date_param:str, final_date_param:str) \

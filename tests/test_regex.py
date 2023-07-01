@@ -1,4 +1,6 @@
 #!/bin/bash python3
+import pandas as pd
+
 import fincode as fc
 
 
@@ -8,4 +10,4 @@ DATA = "02218-7$&PETRO RIO S.A.$&ITR - Informações Trimestrais$& - $&<spanOrde
 def test_get_data_companies():
     result = fc.parser_data_companies(DATA)
     # o resultado deve ser uma lista com 3 documentos
-    assert isinstance(result, list) and len(result) == 3
+    assert isinstance(result, pd.DataFrame) and len(result.index) == 3

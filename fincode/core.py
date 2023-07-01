@@ -25,10 +25,11 @@ def normalize_cvm_code(cvm_code:int):
 
 def parser_data_companies(data_txt:str):
     """
-    O resultado da regex retorna todos os dados juntos numa lista. Esta lista sempre deve 
-    conter uma quantidade de itens multiplo de 5. A cada 5 itens equivalem a um documento.
+    O resultado da regex retorna um dataframe com os dados validados pela regex. 
+    Esta lista sempre deve conter uma quantidade de itens multiplo de 5. 
+    A cada 5 itens equivalem a um documento.
 
-    Os dadoes estão na ordem:
+    Os dados estão na ordem:
     - Nome da empresa
     - Data de Referencia
     - Date de Entrega
@@ -57,7 +58,6 @@ def parser_data_companies(data_txt:str):
             "num_documento": doc_data[3].split('=')[1], 
             "type_doc": doc_data[4].split('=')[1]
         })
-    
     dt = pd.DataFrame(
         data = [ list(doc.values()) for doc in documents_list ], 
         columns = ['company', 'dt_referencia', 'dt_entrega', 'num_documento', 'type_doc']

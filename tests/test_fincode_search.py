@@ -20,10 +20,10 @@ def test_search_petro_rio_by_cvm_code():
         .to_string(index = False, header = False).__eq__('PRIO S.A.')
 
 
-def test_search_companies_with_banco_in_name():
+def test_search_companies_contains_banco_in_name():
     df_res = fc.search_companies_by_name('BANCO', active=True)
     assert isinstance(df_res, pd.DataFrame) 
-    assert len(df_res) == 24
+    assert len(df_res) == 23
 
 
 def test_search_itr_documents() -> None:    

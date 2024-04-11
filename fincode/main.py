@@ -8,8 +8,9 @@ from typing import List, Optional, Union
 import aiohttp
 import pandas as pd
 
-from fincode.utils import (HEADERS, OBJ_SEARCH, URL_DADOS_CADASTRAIS, 
-    URL_RAD_SEARCH, USER_AGENTS)
+from fincode.utils import (
+    HEADERS, OBJ_SEARCH, URL_DADOS_CADASTRAIS, URL_RAD_SEARCH, USER_AGENTS
+)
 from fincode.core import parser_data_companies, normalize_cvm_code
 
 __DataFrame = None
@@ -51,7 +52,7 @@ def search_companies_by_name(name_cia: str, active: Optional[bool] = True) \
 
 
 
-async def __run_search_companies_by_cvm_code(cod_cvm: int):
+async def __run_search_company_by_cvm_code(cod_cvm: int):
     HEADERS['user-agent'] = random.choice(USER_AGENTS)
     async with aiohttp.ClientSession(headers=HEADERS) as session:
         async with session.get(URL_DADOS_CADASTRAIS) as response:
@@ -63,7 +64,7 @@ async def __run_search_companies_by_cvm_code(cod_cvm: int):
             __DataFrame = __DataFrame[['CNPJ_CIA', 'DENOM_SOCIAL', 'CD_CVM', 'SIT']].reset_index(drop=True)
 
 
-def search_companies_by_cvm_code(cod_cvm: int) -> pd.DataFrame:
+def search_company_by_cvm_code(cod_cvm: int) -> pd.DataFrame:
     """
     Busca os dados cadastrais de companhias pelo código CVM.
     
@@ -71,7 +72,7 @@ def search_companies_by_cvm_code(cod_cvm: int) -> pd.DataFrame:
     
     @Return: pandas.Dataframe contendo os dados cadastrais de uma Cia
     """
-    run_event_loop(__run_search_companies_by_cvm_code, cod_cvm)
+    run_event_loop(__run_search_company_by_cvm_code, cod_cvm)
     return __DataFrame
 
 

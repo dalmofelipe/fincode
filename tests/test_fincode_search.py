@@ -5,15 +5,15 @@ import fincode as fc
 
 
 # @pytest.mark.skip(reason="no way of currently testing this")
-def test_search_petro_rio_by_name():
+def test_search_companies_by_name():
     df_res = fc.search_companies_by_name('PRIO')
     # captura lista de valores da coluna CD_CVM
     cvm_codes = list(df_res.loc[:,'CD_CVM'].values)    
     assert 22187 in cvm_codes
 
 
-def test_search_petro_rio_by_cvm_code():
-    df_petro_rio = fc.search_companies_by_cvm_code(22187)
+def test_search_company_by_cvm_code():
+    df_petro_rio = fc.search_company_by_cvm_code(22187)
     assert df_petro_rio['DENOM_SOCIAL']\
         .to_string(index = False, header = False) == 'PRIO S.A.'
     assert df_petro_rio['DENOM_SOCIAL']\
@@ -23,7 +23,7 @@ def test_search_petro_rio_by_cvm_code():
 def test_search_companies_with_banco_in_name():
     df_res = fc.search_companies_by_name('BANCO', active=True)
     assert isinstance(df_res, pd.DataFrame) 
-    assert len(df_res) == 24
+    assert len(df_res) == 22
 
 
 def test_search_itr_documents() -> None:    

@@ -1,0 +1,7 @@
+- [ ] abrir um documento, ex: GET https://www.rad.cvm.gov.br/ENET/frmGerenciaPaginaFRE.aspx?NumeroSequencialDocumento=121259&CodigoTipoInstituicao=1 HTTP/1
+    - [ ] parser da tag select/options, capturando params da uri das options
+    - [ ] parser da tag script, capturando o query param "Hash"
+    - [ ] capturar o cookie via asyncio
+- [ ] Compor a url completa de cada documento
+    - [ ] Substituir os caracteres ```&amp;``` por ```&```
+    - [ ] adicionar na uri **CodTipoDocumento, NumeroSequencialDocumento, NumeroSequencialRegistroCvm, CodigoTipoInstituicao e Hash**

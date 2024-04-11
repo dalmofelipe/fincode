@@ -21,3 +21,7 @@ Content-type: application/json
     "token": "",
     "versaoCaptcha": ""
 }
+
+
+###
+GET https://www.rad.cvm.gov.br/ENET/frmGerenciaPaginaFRE.aspx?NumeroSequencialDocumento=121259&CodigoTipoInstituicao=1 HTTP/1.1

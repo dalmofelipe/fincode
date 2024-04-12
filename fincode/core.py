@@ -60,6 +60,6 @@ def parser_data_companies(data_txt:str):
         })
     dt = pd.DataFrame(
         data = [ list(doc.values()) for doc in documents_list ], 
-        columns = ['company', 'dt_referencia', 'dt_entrega', 'num_documento', 'type_doc']
+        columns = [ 'company', 'dt_referencia', 'dt_entrega', 'num_documento', 'type_doc' ]
     )
     return dt

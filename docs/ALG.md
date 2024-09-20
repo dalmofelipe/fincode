@@ -61,26 +61,10 @@ Content-type: application/json
 
 <br>
 
-### 2. Parse da resposta, extraindo dados dos documentos - NumeroSequencialDocumento e CodigoTipoInstituicao
+### 2. Parse da ```response.d.dados```, extraindo dados dos documentos - NumeroSequencialDocumento e CodigoTipoInstituicao
 
-```md
-02218-7$&PETRO RIO S.A.$&ITR - Informações Trimestrais$& - $&<spanOrder></spanOrder> - $&<spanOrder>20220331</spanOrder> **31/03/2022**$&<spanOrder>20220504</spanOrder> 04/05/2022 18:59$&Ativo$&1$&AP$&<i class='fi-page-search' id='VisualizarDocumento' style='font-size: 18px;cursor:pointer;color:#0C7766;' onclick=
-
-**OpenPopUpVer('frmGerenciaPaginaFRE.aspx?NumeroSequencialDocumento=114282&CodigoTipoInstituicao=1')**
-
- title='Visualizar o Documento'> </i><i class='fi-download' style='font-size: 18px;cursor:pointer;color:#0C7766;' title='Download' onclick=OpenDownloadDocumentos('114282','1','022187ITR310320220100114282-66','ITR')> </i><i class='fi-info' style='font-size: 18px;cursor:pointer;color:#696969;' title='Documento não possui local de publicação.'> </i><i class='fi-clipboard-notes' style='font-size: 18px;cursor:pointer;color:#0C7766;' title='Exibir Protocolo de Entrega' onclick='exibirProtocoloPDF(114282, \"ENET\")'</i>
-
-$&$&&*02218-7$&PETRO RIO S.A.$&ITR - Informações Trimestrais$& - $&<spanOrder></spanOrder> - $&<spanOrder>20220630</spanOrder> **30/06/2022**$&<spanOrder>20220803</spanOrder> 03/08/2022 19:38$&Ativo$&1$&AP$&<i class='fi-page-search' id='VisualizarDocumento' style='font-size: 18px;cursor:pointer;color:#0C7766;' onclick=
-
-**OpenPopUpVer('frmGerenciaPaginaFRE.aspx?NumeroSequencialDocumento=119205&CodigoTipoInstituicao=1')**
-
- title='Visualizar o Documento'> </i><i class='fi-download' style='font-size: 18px;cursor:pointer;color:#0C7766;' title='Download' onclick=OpenDownloadDocumentos('119205','1','022187ITR300620220100119205-77','ITR')> </i><i class='fi-info' style='font-size: 18px;cursor:pointer;color:#696969;' title='Documento não possui local de publicação.'> </i><i class='fi-clipboard-notes' style='font-size: 18px;cursor:pointer;color:#0C7766;' title='Exibir Protocolo de Entrega' onclick='exibirProtocoloPDF(119205, \"ENET\")'</i>
-
-$&$&&*02218-7$&PETRO RIO S.A.$&ITR - Informações Trimestrais$& - $&<spanOrder></spanOrder> - $&<spanOrder>20220930</spanOrder> **30/09/2022** $&<spanOrder>20221031</spanOrder> 31/10/2022 19:25$&Ativo$&1$&AP$&<i class='fi-page-search' id='VisualizarDocumento' style='font-size: 18px;cursor:pointer;color:#0C7766;' onclick=
-
-**OpenPopUpVer('frmGerenciaPaginaFRE.aspx?NumeroSequencialDocumento=121259&CodigoTipoInstituicao=1')**
-
- title='Visualizar o Documento'> </i><i class='fi-download' style='font-size: 18px;cursor:pointer;color:#0C7766;' title='Download' onclick=OpenDownloadDocumentos('121259','1','022187ITR300920220100121259-72','ITR')> </i><i class='fi-info' style='font-size: 18px;cursor:pointer;color:#696969;' title='Documento não possui local de publicação.'> </i><i class='fi-clipboard-notes' style='font-size: 18px;cursor:pointer;color:#0C7766;' title='Exibir Protocolo de Entrega' onclick='exibirProtocoloPDF(121259, \"ENET\")'</i>$&$&&*
+```
+02218-7$&PETRO RIO S.A.$&ITR - Informações Trimestrais$& - $&<spanOrder></spanOrder> - $&<spanOrder>20220331</spanOrder> **31/03/2022**$&<spanOrder>20220504</spanOrder> 04/05/2022 18:59$&Ativo$&1$&AP$&<i class='fi-page-search' id='VisualizarDocumento' style='font-size: 18px;cursor:pointer;color:#0C7766;' onclick=**OpenPopUpVer('frmGerenciaPaginaFRE.aspx?NumeroSequencialDocumento=114282&CodigoTipoInstituicao=1')**title='Visualizar o Documento'> </i><i class='fi-download' style='font-size: 18px;cursor:pointer;color:#0C7766;' title='Download' onclick=OpenDownloadDocumentos('114282','1','022187ITR310320220100114282-66','ITR')> </i><i class='fi-info' style='font-size: 18px;cursor:pointer;color:#696969;' title='Documento não possui local de publicação.'> </i><i class='fi-clipboard-notes' style='font-size: 18px;cursor:pointer;color:#0C7766;' title='Exibir Protocolo de Entrega' onclick='exibirProtocoloPDF(114282, \"ENET\")'</i>$&$&&*02218-7$&PETRO RIO S.A.$&ITR - Informações Trimestrais$& - $&<spanOrder></spanOrder> - $&<spanOrder>20220630</spanOrder> **30/06/2022**$&<spanOrder>20220803</spanOrder> 03/08/2022 19:38$&Ativo$&1$&AP$&<i class='fi-page-search' id='VisualizarDocumento' style='font-size: 18px;cursor:pointer;color:#0C7766;' onclick=**OpenPopUpVer('frmGerenciaPaginaFRE.aspx?NumeroSequencialDocumento=119205&CodigoTipoInstituicao=1')**title='Visualizar o Documento'> </i><i class='fi-download' style='font-size: 18px;cursor:pointer;color:#0C7766;' title='Download' onclick=OpenDownloadDocumentos('119205','1','022187ITR300620220100119205-77','ITR')> </i><i class='fi-info' style='font-size: 18px;cursor:pointer;color:#696969;' title='Documento não possui local de publicação.'> </i><i class='fi-clipboard-notes' style='font-size: 18px;cursor:pointer;color:#0C7766;' title='Exibir Protocolo de Entrega' onclick='exibirProtocoloPDF(119205, \"ENET\")'</i>$&$&&*02218-7$&PETRO RIO S.A.$&ITR - Informações Trimestrais$& - $&<spanOrder></spanOrder> - $&<spanOrder>20220930</spanOrder> **30/09/2022** $&<spanOrder>20221031</spanOrder> 31/10/2022 19:25$&Ativo$&1$&AP$&<i class='fi-page-search' id='VisualizarDocumento' style='font-size: 18px;cursor:pointer;color:#0C7766;' onclick=**OpenPopUpVer('frmGerenciaPaginaFRE.aspx?NumeroSequencialDocumento=121259&CodigoTipoInstituicao=1')**title='Visualizar o Documento'> </i><i class='fi-download' style='font-size: 18px;cursor:pointer;color:#0C7766;' title='Download' onclick=OpenDownloadDocumentos('121259','1','022187ITR300920220100121259-72','ITR')> </i><i class='fi-info' style='font-size: 18px;cursor:pointer;color:#696969;' title='Documento não possui local de publicação.'> </i><i class='fi-clipboard-notes' style='font-size: 18px;cursor:pointer;color:#0C7766;' title='Exibir Protocolo de Entrega' onclick='exibirProtocoloPDF(121259, \"ENET\")'</i>$&$&&*
 ```
 
 **Informações extraídas**
@@ -109,23 +93,21 @@ GET https://www.rad.cvm.gov.br/ENET/frmGerenciaPaginaFRE.aspx?NumeroSequencialDo
 
 A requisão responde com links do select dos documentos
 
-```
+```html
 <select name="cmbQuadro" id="cmbQuadro" ShowLabel="true">
+    <option value="frmDemonstracaoFinanceiraITR.aspx?Informacao=2&amp;Demonstracao=2&amp;Periodo=0&amp;Grupo=DFs+Consolidadas&amp;Quadro=Balan%c3%a7o+Patrimonial+Ativo&amp;NomeTipoDocumento=ITR&amp;Empresa=PETRO RIO S.A.&amp;DataReferencia=2022-09-30&amp;Versao=1">Balan&#231;o Patrimonial Ativo</option>
 
-<option value="frmDemonstracaoFinanceiraITR.aspx?Informacao=2&amp;Demonstracao=2&amp;Periodo=0&amp;Grupo=DFs+Consolidadas&amp;Quadro=Balan%c3%a7o+Patrimonial+Ativo&amp;NomeTipoDocumento=ITR&amp;Empresa=PETRO RIO S.A.&amp;DataReferencia=2022-09-30&amp;Versao=1">Balan&#231;o Patrimonial Ativo</option>
+    <option value="frmDemonstracaoFinanceiraITR.aspx?Informacao=2&amp;Demonstracao=3&amp;Periodo=0&amp;Grupo=DFs+Consolidadas&amp;Quadro=Balan%c3%a7o+Patrimonial+Passivo&amp;NomeTipoDocumento=ITR&amp;Empresa=PETRO RIO S.A.&amp;DataReferencia=2022-09-30&amp;Versao=1">Balan&#231;o Patrimonial Passivo</option>
 
-<option value="frmDemonstracaoFinanceiraITR.aspx?Informacao=2&amp;Demonstracao=3&amp;Periodo=0&amp;Grupo=DFs+Consolidadas&amp;Quadro=Balan%c3%a7o+Patrimonial+Passivo&amp;NomeTipoDocumento=ITR&amp;Empresa=PETRO RIO S.A.&amp;DataReferencia=2022-09-30&amp;Versao=1">Balan&#231;o Patrimonial Passivo</option>
+    <option selected="selected" value="frmDemonstracaoFinanceiraITR.aspx?Informacao=2&amp;Demonstracao=4&amp;Periodo=0&amp;Grupo=DFs+Consolidadas&amp;Quadro=Demonstra%c3%a7%c3%a3o+do+Resultado&amp;NomeTipoDocumento=ITR&amp;Empresa=PETRO RIO S.A.&amp;DataReferencia=2022-09-30&amp;Versao=1">Demonstra&#231;&#227;o do Resultado</option>
 
-<option selected="selected" value="frmDemonstracaoFinanceiraITR.aspx?Informacao=2&amp;Demonstracao=4&amp;Periodo=0&amp;Grupo=DFs+Consolidadas&amp;Quadro=Demonstra%c3%a7%c3%a3o+do+Resultado&amp;NomeTipoDocumento=ITR&amp;Empresa=PETRO RIO S.A.&amp;DataReferencia=2022-09-30&amp;Versao=1">Demonstra&#231;&#227;o do Resultado</option>
+    <option value="frmDemonstracaoFinanceiraITR.aspx?Informacao=2&amp;Demonstracao=5&amp;Periodo=0&amp;Grupo=DFs+Consolidadas&amp;Quadro=Demonstra%c3%a7%c3%a3o+do+Resultado+Abrangente&amp;NomeTipoDocumento=ITR&amp;Empresa=PETRO RIO S.A.&amp;DataReferencia=2022-09-30&amp;Versao=1">Demonstra&#231;&#227;o do Resultado Abrangente</option>
 
-<option value="frmDemonstracaoFinanceiraITR.aspx?Informacao=2&amp;Demonstracao=5&amp;Periodo=0&amp;Grupo=DFs+Consolidadas&amp;Quadro=Demonstra%c3%a7%c3%a3o+do+Resultado+Abrangente&amp;NomeTipoDocumento=ITR&amp;Empresa=PETRO RIO S.A.&amp;DataReferencia=2022-09-30&amp;Versao=1">Demonstra&#231;&#227;o do Resultado Abrangente</option>
+    <option value="frmDemonstracaoFinanceiraITR.aspx?Informacao=2&amp;Demonstracao=99&amp;Periodo=0&amp;Grupo=DFs+Consolidadas&amp;Quadro=Demonstra%c3%a7%c3%a3o+do+Fluxo+de+Caixa&amp;NomeTipoDocumento=ITR&amp;Empresa=PETRO RIO S.A.&amp;DataReferencia=2022-09-30&amp;Versao=1">Demonstra&#231;&#227;o do Fluxo de Caixa</option>
 
-<option value="frmDemonstracaoFinanceiraITR.aspx?Informacao=2&amp;Demonstracao=99&amp;Periodo=0&amp;Grupo=DFs+Consolidadas&amp;Quadro=Demonstra%c3%a7%c3%a3o+do+Fluxo+de+Caixa&amp;NomeTipoDocumento=ITR&amp;Empresa=PETRO RIO S.A.&amp;DataReferencia=2022-09-30&amp;Versao=1">Demonstra&#231;&#227;o do Fluxo de Caixa</option>
+    <option value="frmDemonstracaoFinanceiraITR.aspx?Informacao=200&amp;Demonstracao=8&amp;Periodo=4|6&amp;Grupo=DFs+Consolidadas&amp;Quadro=Demonstra%c3%a7%c3%a3o+das+Muta%c3%a7%c3%b5es+do+Patrim%c3%b4nio+L%c3%adquido&amp;NomeTipoDocumento=ITR&amp;Empresa=PETRO RIO S.A.&amp;DataReferencia=2022-09-30&amp;Versao=1">Demonstra&#231;&#227;o das Muta&#231;&#245;es do Patrim&#244;nio L&#237;quido</option>
 
-<option value="frmDemonstracaoFinanceiraITR.aspx?Informacao=200&amp;Demonstracao=8&amp;Periodo=4|6&amp;Grupo=DFs+Consolidadas&amp;Quadro=Demonstra%c3%a7%c3%a3o+das+Muta%c3%a7%c3%b5es+do+Patrim%c3%b4nio+L%c3%adquido&amp;NomeTipoDocumento=ITR&amp;Empresa=PETRO RIO S.A.&amp;DataReferencia=2022-09-30&amp;Versao=1">Demonstra&#231;&#227;o das Muta&#231;&#245;es do Patrim&#244;nio L&#237;quido</option>
-
-<option value="frmDemonstracaoFinanceiraITR.aspx?Informacao=2&amp;Demonstracao=9&amp;Periodo=0&amp;Grupo=DFs+Consolidadas&amp;Quadro=Demonstra%c3%a7%c3%a3o+de+Valor+Adicionado&amp;NomeTipoDocumento=ITR&amp;Empresa=PETRO RIO S.A.&amp;DataReferencia=2022-09-30&amp;Versao=1">Demonstra&#231;&#227;o de Valor Adicionado</option>
-
+    <option value="frmDemonstracaoFinanceiraITR.aspx?Informacao=2&amp;Demonstracao=9&amp;Periodo=0&amp;Grupo=DFs+Consolidadas&amp;Quadro=Demonstra%c3%a7%c3%a3o+de+Valor+Adicionado&amp;NomeTipoDocumento=ITR&amp;Empresa=PETRO RIO S.A.&amp;DataReferencia=2022-09-30&amp;Versao=1">Demonstra&#231;&#227;o de Valor Adicionado</option>
 </select>
 ```
 
@@ -166,13 +148,13 @@ frmDemonstracaoFinanceiraITR.aspx?Informacao=2&Demonstracao=4&Periodo=0&Grupo=DF
 DFs Consolidadas / Demonstração do Resultado - (Reais Mil)
 
 ```http
-GET https://www.rad.cvm.gov.br/ENET/frmDemonstracaoFinanceiraITR.aspx?Informacao=2&Demonstracao=4&Periodo=0&Grupo=DFs+Consolidadas&Quadro=Demonstra%c3%a7%c3%a3o+do+Resultado&NomeTipoDocumento=ITR&Empresa=PETRO RIO S.A.&DataReferencia=2022-09-30&Versao=1&CodTipoDocumento=3&NumeroSequencialDocumento=121259&NumeroSequencialRegistroCvm=2047&CodigoTipoInstituicao=1&Hash=y3IyKxBke2XIX7QxbQAOb4C8na7GDQuHnlBeTaV73Rg
+GET https://www.rad.cvm.gov.br/ENET/frmDemonstracaoFinanceiraITR.aspx?Informacao=2&Demonstracao=4&Periodo=0&Grupo=DFs+Consolidadas&Quadro=Demonstra%c3%a7%c3%a3o+do+Resultado&NomeTipoDocumento=ITR&Empresa=PETRO RIO S.A.&DataReferencia=2022-09-30&Versao=1&CodTipoDocumento=3&NumeroSequencialDocumento=121259&NumeroSequencialRegistroCvm=2047&CodigoTipoInstituicao=1&Hash=TPJcymsReAUxJNokbLHcgQ8BpWbfGhgn1vkeO5lUOA
 ```
 
 DFs Consolidadas / Balanço Patrimonial Ativo - (Reais Mil)
 
 ```http
-GET https://www.rad.cvm.gov.br/ENET/frmDemonstracaoFinanceiraITR.aspx?Informacao=2&Demonstracao=2&Periodo=0&Grupo=DFs+Consolidadas&Quadro=Balan%c3%a7o+Patrimonial+Ativo&NomeTipoDocumento=ITR&Empresa=PETRO RIO S.A.&DataReferencia=2022-09-30&Versao=1&CodTipoDocumento=3&NumeroSequencialDocumento=121259&NumeroSequencialRegistroCvm=2047&CodigoTipoInstituicao=1&Hash=y3IyKxBke2XIX7QxbQAOb4C8na7GDQuHnlBeTaV73Rg
+GET https://www.rad.cvm.gov.br/ENET/frmDemonstracaoFinanceiraITR.aspx?Informacao=2&Demonstracao=2&Periodo=0&Grupo=DFs+Consolidadas&Quadro=Balan%c3%a7o+Patrimonial+Ativo&NomeTipoDocumento=ITR&Empresa=PETRO RIO S.A.&DataReferencia=2022-09-30&Versao=1&CodTipoDocumento=3&NumeroSequencialDocumento=121259&NumeroSequencialRegistroCvm=2047&CodigoTipoInstituicao=1&Hash=TPJcymsReAUxJNokbLHcgQ8BpWbfGhgn1vkeO5lUOA
 ```
 
 DFs Consolidadas / Balanço Patrimonial Passivo - (Reais Mil)

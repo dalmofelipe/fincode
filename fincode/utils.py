@@ -15,7 +15,7 @@ USER_AGENTS = [
     'Mozilla/5.0 (iPhone; CPU iPhone OS 8_4 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) GSA/7.0.55539 Mobile/12H143 Safari/600.1.4'
 ]
 HEADERS = {
-    'user-agent': None,
+    'user-agent': "",
     'referrer': 'https://google.com',
     'Accept-Language': 'en-US,en;q=0.9',
     'Pragma': 'no-cache',

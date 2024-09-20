@@ -1,19 +1,16 @@
-""" Finance Code """
-import asyncio
-import random
+""" FinCode """
+import asyncio, aiohttp, random, pandas as pd
+
 from datetime import datetime
 from io import StringIO
 from typing import List, Optional, Union
 
-import aiohttp
-import pandas as pd
-
+from fincode.core import parser_data_companies, normalize_cvm_code
 from fincode.utils import (
     HEADERS, OBJ_SEARCH, URL_DADOS_CADASTRAIS, URL_RAD_SEARCH, USER_AGENTS
 )
-from fincode.core import parser_data_companies, normalize_cvm_code
 
-__DataFrame = None
+__DataFrame : pd.DataFrame = None
 
 
 def run_event_loop(function, *args):
@@ -22,7 +19,7 @@ def run_event_loop(function, *args):
     return __DataFrame
 
 
-async def __run_search_companies_by_name(name_cia:str, active:bool): 
+async def __run_search_companies_by_name(name_cia:str, only_actives:bool):
     name_cia = name_cia.upper()
     HEADERS['user-agent'] = random.choice(USER_AGENTS)
     async with aiohttp.ClientSession(headers=HEADERS) as session:
@@ -32,12 +29,12 @@ async def __run_search_companies_by_name(name_cia:str, active:bool):
             csv_io = StringIO(csv_text)
             __DataFrame = pd.read_csv(csv_io, sep=';', header=0, index_col=False)
             __DataFrame = __DataFrame[ (__DataFrame['DENOM_SOCIAL'].str.contains(name_cia, na = False)) ]
-            if active:
+            if only_actives:
                 __DataFrame = __DataFrame[ (__DataFrame['SIT'].str.contains('ATIVO', na = False)) ]
             __DataFrame = __DataFrame[['CNPJ_CIA', 'DENOM_SOCIAL', 'CD_CVM', 'SIT']].reset_index(drop=True)
 
 
-def search_companies_by_name(name_cia: str, active: Optional[bool] = True) \
+def search_companies_by_name(name_cia: str,  only_actives: Optional[bool] = True)\
     -> pd.DataFrame:
     """
     Busca os dados cadastrais de companhias pelo nome;
@@ -47,7 +44,7 @@ def search_companies_by_name(name_cia: str, active: Optional[bool] = True) \
     
     @Return: pandas.Dataframe de companhias em que houve casamento de padrão com texto de entrada
     """
-    run_event_loop(__run_search_companies_by_name, name_cia, active)
+    run_event_loop(__run_search_companies_by_name, name_cia, only_actives)
     return __DataFrame
 
 
@@ -92,7 +89,7 @@ async def __run_search_itr_docs(cvm_code:int, start_date_param:str, final_date_p
             __DataFrame = parser_data_companies(data)
 
 
-def search_itr_docs(cvm_code:int, start_date_param:str, final_date_param:str) \
+def search_itr_docs(cvm_code:int, start_date_param:str, final_date_param:str)\
     -> Union[List, None]:
     """
     Pesquisa documentos ITR num período específico
@@ -101,14 +98,14 @@ def search_itr_docs(cvm_code:int, start_date_param:str, final_date_param:str) \
 
     @Return: Lista dos com dados dos documentos encontrados
     """
-    start_date = datetime.strptime(start_date_param, '%d/%m/%Y')
-    start_date = str(start_date.date().strftime("%d/%m/%Y"))
+    start_date = datetime.strptime(start_date_param, '%d/%m/%Y').date()
+    str_start_date = start_date.strftime("%d/%m/%Y")
 
-    final_date = datetime.strptime(final_date_param, '%d/%m/%Y')
-    final_date = str(final_date.date().strftime("%d/%m/%Y"))
+    final_date = datetime.strptime(final_date_param, '%d/%m/%Y').date()
+    str_final_date = final_date.strftime("%d/%m/%Y")
 
     if start_date > final_date:
         return None
     
-    run_event_loop(__run_search_itr_docs, cvm_code, start_date, final_date)
+    run_event_loop(__run_search_itr_docs, cvm_code, str_start_date, str_final_date)
     return __DataFrame

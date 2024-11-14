@@ -1,4 +1,7 @@
 
+from abc import ABC
+
+
 URL_RAD_SEARCH = 'https://www.rad.cvm.gov.br/ENET/frmConsultaExternaCVM.aspx/ListarDocumentos'
 URL_DADOS_CADASTRAIS = 'https://dados.cvm.gov.br/dados/CIA_ABERTA/CAD/DADOS/cad_cia_aberta.csv'
 USER_AGENTS = [
@@ -41,3 +44,9 @@ OBJ_SEARCH = {
 }
 RGX_PARSER_DADOS_EMPRESAS = r'(\$&[a-zA-Z1-9.\- ]+\$&ITR|\d{2}/\d{2}/\d{4}|NumeroSequencialDocumento=\d+|CodigoTipoInstituicao=\d+)'
 
+
+class ItrDocs:
+
+    DADOS_DA_EMPRESA:int = 1
+    DFS_INDIVIDUAIS:int = 78
+    DFS_CONSOLIDADAS:int = 135

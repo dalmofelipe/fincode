@@ -21,7 +21,7 @@ def test_search_company_by_cvm_code():
 
 
 def test_search_companies_contains_banco_in_name():
-    df_res = fc.search_companies_by_name('BANCO', active=True)
+    df_res = fc.search_companies_by_name('BANCO', only_actives=True)
     assert isinstance(df_res, pd.DataFrame) 
     assert len(df_res) == 22
 

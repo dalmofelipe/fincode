@@ -22,7 +22,7 @@ def run_event_loop(function, *args):
     return __DataFrame
 
 
-async def __run_search_companies_by_name(name_cia:str, active:bool): 
+async def __run_search_companies_by_name(name_cia:str, only_actives:bool): 
     name_cia = name_cia.upper()
     HEADERS['user-agent'] = random.choice(USER_AGENTS)
     async with aiohttp.ClientSession(headers=HEADERS) as session:
@@ -32,22 +32,22 @@ async def __run_search_companies_by_name(name_cia:str, active:bool):
             csv_io = StringIO(csv_text)
             __DataFrame = pd.read_csv(csv_io, sep=';', header=0, index_col=False)
             __DataFrame = __DataFrame[ (__DataFrame['DENOM_SOCIAL'].str.contains(name_cia, na = False)) ]
-            if active:
+            if only_actives:
                 __DataFrame = __DataFrame[ (__DataFrame['SIT'].str.contains('ATIVO', na = False)) ]
             __DataFrame = __DataFrame[['CNPJ_CIA', 'DENOM_SOCIAL', 'CD_CVM', 'SIT']].reset_index(drop=True)
 
 
-def search_companies_by_name(name_cia: str, active: Optional[bool] = True) \
+def search_companies_by_name(name_cia: str, only_actives: Optional[bool] = True) \
     -> pd.DataFrame:
     """
     Busca os dados cadastrais de companhias pelo nome;
     
     @Params: String 'name_cia' - será comparado com os nomes das Cia.
-    @Params: Boolean 'active' - filtra companhias com registro ativo. Este o comportamento padrão.
+    @Params: Boolean 'only_actives' - filtra companhias com registro ativo. Este o comportamento padrão.
     
     @Return: pandas.Dataframe de companhias em que houve casamento de padrão com texto de entrada
     """
-    run_event_loop(__run_search_companies_by_name, name_cia, active)
+    run_event_loop(__run_search_companies_by_name, name_cia, only_actives)
     return __DataFrame
 
 

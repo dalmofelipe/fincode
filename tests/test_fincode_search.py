@@ -2,6 +2,7 @@
 import pytest
 import pandas as pd
 import fincode as fc
+import rich
 
 
 # @pytest.mark.skip(reason="no way of currently testing this")
@@ -21,8 +22,11 @@ def test_search_company_by_cvm_code():
 
 
 def test_search_companies_contains_banco_in_name():
-    df_res = fc.search_companies_by_name('BANCO', active=True)
-    assert isinstance(df_res, pd.DataFrame) 
+    df_res = fc.search_companies_by_name('BANCO', only_actives=True)
+    assert isinstance(df_res, pd.DataFrame)
+    assert 'BANCO DO BRASIL S.A.' in df_res['DENOM_SOCIAL'].values
+    assert 'ITAÚ UNIBANCO HOLDING S.A.' in df_res['DENOM_SOCIAL'].values
+    assert 'BANCO NACIONAL S.A. - EM LIQUIDAÇÃO EXTRAJUDICIAL' in df_res['DENOM_SOCIAL'].values
     assert len(df_res) == 22
 
 

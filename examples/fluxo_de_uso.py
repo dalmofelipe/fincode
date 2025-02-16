@@ -4,7 +4,7 @@ import fincode as fc
 import rich
 
 # Pesquisando informações cadastrais de empresas, para obter o codigo CVM, por exemplo
-df_result = fc.search_companies_by_name('rio s', active=False)
+df_result = fc.search_companies_by_name('rio', only_actives = True)
 rich.print("---------------------------------------------------------------")
 rich.print("\tConsultando empresas que contem 'RIO' no nome, para obter o codigo CVM\n")
 rich.print(df_result)

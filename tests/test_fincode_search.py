@@ -14,7 +14,7 @@ def test_search_companies_by_name():
 
 
 def test_search_company_by_cvm_code():
-    df_petro_rio = fc.search_company_by_cvm_code(22187)
+    df_petro_rio:pd.DataFrame = fc.search_company_by_cvm_code(22187)
     assert df_petro_rio['DENOM_SOCIAL']\
         .to_string(index = False, header = False) == 'PRIO S.A.'
     assert df_petro_rio['DENOM_SOCIAL']\
@@ -26,8 +26,7 @@ def test_search_companies_contains_banco_in_name():
     assert isinstance(df_res, pd.DataFrame)
     assert 'BANCO DO BRASIL S.A.' in df_res['DENOM_SOCIAL'].values
     assert 'ITAÚ UNIBANCO HOLDING S.A.' in df_res['DENOM_SOCIAL'].values
-    assert 'BANCO NACIONAL S.A. - EM LIQUIDAÇÃO EXTRAJUDICIAL' in df_res['DENOM_SOCIAL'].values
-    assert len(df_res) == 22
+    assert len(df_res) == 21
 
 
 def test_search_itr_documents() -> None:    

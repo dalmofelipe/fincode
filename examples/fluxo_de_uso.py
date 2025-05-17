@@ -17,7 +17,7 @@ rich.print(df_prio)
 
 # Consulta de documentos ITR da PRIO3 dos ultimos 5 anos. 
 # Obs: o quarto trimestre pode aparecer nos primeiros meses do ano seguinte
-df_itrdocs = fc.search_itr_docs(22187, '01/01/2019', '31/12/2024')
+df_itrdocs = fc.search_itr_docs(22187, '01/01/2019', '31/05/2025')
 rich.print("---------------------------------------------------------------")
 rich.print("\tListando ITRs dos utimos 5 anos da PRIO\n")
 rich.print(df_itrdocs)

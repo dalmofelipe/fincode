@@ -4,4 +4,4 @@
     - [ ] capturar o cookie via asyncio
 - [ ] Compor a url completa de cada documento
     - [ ] Substituir os caracteres ```&amp;``` por ```&```
-    - [ ] adicionar na uri **CodTipoDocumento, NumeroSequencialDocumento, NumeroSequencialRegistroCvm, CodigoTipoInstituicao e Hash**
+    - [ ] adicionar na uri __CodTipoDocumento, NumeroSequencialDocumento, NumeroSequencialRegistroCvm, CodigoTipoInstituicao e Hash__
